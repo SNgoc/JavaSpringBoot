@@ -1,7 +1,6 @@
 package fpt.aptech.day2camera.repository;
 
 import fpt.aptech.day2camera.model.Camera;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

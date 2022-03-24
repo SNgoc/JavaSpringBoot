@@ -9,8 +9,9 @@ import javax.validation.constraints.NotNull;
 @Table(name = "camera")
 public class Camera {
     @Id
-    @NotBlank(message = "Id is required blank")
-    private String Id;
+    @Column(unique = true)
+    @NotBlank(message = "Id is required, cannot blank")
+    private String id;
     @Column
     @NotBlank(message = "Name is required")
     private String name;
@@ -23,17 +24,17 @@ public class Camera {
     }
 
     public Camera(String id, String name, Integer price) {
-        Id = id;
+        this.id = id;
         this.name = name;
         this.price = price;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {

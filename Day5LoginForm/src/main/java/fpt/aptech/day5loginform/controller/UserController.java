@@ -22,6 +22,11 @@ public class UserController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String viewLoginPage(){
+        return "/login";
+    }
+
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         User user = new User();

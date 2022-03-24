@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>List of Users</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 </head>
 <body>
+<!-- [[${#httpServletRequest.remoteUser}]] la hien thi ten username khi login success -->
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<!--dung action login, logout co san cua thu vien ben ham @Override trang LoginConfig-->
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="SignOut"/>
+</form>
 <table class="table table-responsive">
     <thead>
     <th>Id</th>

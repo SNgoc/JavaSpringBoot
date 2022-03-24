@@ -21,8 +21,8 @@ public class CameraService {
     }
 
     //hàm search by id
-    public Camera getCameraById (String Id){
-        return repo.findById(Id).get();
+    public Camera getCameraById (String id){
+        return repo.findById(id).get();
     }
 
     //hàm save or update

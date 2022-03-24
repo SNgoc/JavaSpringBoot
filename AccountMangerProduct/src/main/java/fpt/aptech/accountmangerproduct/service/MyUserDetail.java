@@ -1,24 +1,32 @@
-package fpt.aptech.day5loginform.security;
+package fpt.aptech.accountmangerproduct.service;
 
-import fpt.aptech.day5loginform.model.User;
+import fpt.aptech.accountmangerproduct.model.Role;
+import fpt.aptech.accountmangerproduct.model.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-//in order to implement authentication (login) feature,
-// we need to create a class of subtype UserDetails (defined by Spring Security) to represent an authentication user
-public class CustomUserDetails implements UserDetails {
-    //Declare Model User to authorize username and password in db
+public class MyUserDetail implements UserDetails {
     private User user;
 
-    public CustomUserDetails(User user) {
+    public MyUserDetail(User user) {
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        //cap quyen cho user theo role
+        List<Role> roles = user.getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getRolename())); // cap quyen theo role tao trong db
+        }
+
+        return authorities;
     }
 
     @Override

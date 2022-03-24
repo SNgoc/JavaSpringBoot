@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -25,7 +27,17 @@ public class CameraController {
 
     //Create and update
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveCamera(@ModelAttribute("camera") Camera camera){//@ModelAttribute("camera") là lấy data get từ obj camera bên html qua
+    //dung @Valid va BindingResult de check validation property trong model Camera
+    public String saveCamera(@RequestParam("action") String action, @ModelAttribute("camera") @Valid Camera camera, BindingResult result){//@ModelAttribute("camera") là lấy data get từ obj camera bên html qua
+        //bao loi trang create
+        if (result.hasErrors() && action.equals("Create")) {//tra ve hien thi thong bao loi neu create ko thanh cong
+            return "/create";
+        }
+        //bao loi trang update
+        if (result.hasErrors() && action.equals("Update")) {//tra ve hien thi thong bao loi neu create ko thanh cong
+            return "/update";
+        }
+
         cameraService.SaveOrUpdate(camera);
         return "redirect:/";
     }
@@ -57,9 +69,11 @@ public class CameraController {
     @GetMapping("/searchPrice")
     public String searchPricePage(Model model, @Param("from") String from, @Param("to") String to){//dùng string để check null
     //dùng @Param ko yêu cầu truyền tham số đầu vào giống @RequestParam, getParameter từ field input name=from, name=to
-        if (from != null && to != null){
-            model.addAttribute("list", cameraService.showByPrice(Integer.parseInt(from),Integer.parseInt(to)));
+        //pattern for search price: require 2 field not null and min must be < max
+        if (from != null && to != null && Integer.parseInt(from) > Integer.parseInt(to)) { //if 2 field not null and from > to
+            model.addAttribute("result", "max price must be greater than min price");
         }
+        model.addAttribute("list", cameraService.showByPrice(Integer.parseInt(from),Integer.parseInt(to)));
         //return "searchPrice";//search và hiển thị result trong trang riêng
         return "index";//search và hiển thị result ở trang index
     }

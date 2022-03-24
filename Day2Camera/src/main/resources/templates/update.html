@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:="http://www.w3.org/1999/xhtml" xmlns:th="http://themyleaf.org">
+<html lang="en" xmlns:="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Camera</title>
@@ -16,13 +16,15 @@
         <tr>
             <td>Name</td>
             <td><input type="text" th:field="*{name}"/></td>
+            <td><strong style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></strong></td>
         </tr>
         <tr>
             <td>Price</td>
             <td><input type="number" th:field="*{price}"/></td>
+            <td><strong style="color: red;" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></strong></td>
         </tr>
     </table>
-    <input type="submit" value="Update"/>
+    <input type="submit" th:name="action" th:value="Update"/>
 </form>
 </body>
 </html>

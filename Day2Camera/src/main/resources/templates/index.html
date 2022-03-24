@@ -19,6 +19,7 @@
   &nbsp;
   <input type="submit" value="Search" />
 </form>
+<strong th:text="${result}" style="color: red;"></strong>
 <hr>
 <form th:action="@{/searchName}">
   <input type="text"  name="cameraName" placeholder="Enter a keyword" />
