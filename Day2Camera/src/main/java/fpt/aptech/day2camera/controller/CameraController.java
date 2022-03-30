@@ -4,6 +4,7 @@ import fpt.aptech.day2camera.model.Camera;
 import fpt.aptech.day2camera.service.CameraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,14 @@ import java.util.List;
 public class CameraController {
     @Autowired
     CameraService cameraService;
+
+    //show all data theo dang chuoi json key:value
+//    @GetMapping("/listJson")
+//    public ResponseEntity<List> viewHomePage(Model model, @Param("min") String from, @Param("max") String to){
+//        List<Camera> cameraList = cameraService.showAll();
+//        model.addAttribute("list", cameraList);//luu data vao bien list
+//        return ResponseEntity.ok(cameraList);
+//    }
 
     //show all
     @GetMapping("/")
